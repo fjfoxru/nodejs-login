@@ -15,7 +15,6 @@ router.get('/login',
     },
   ),
   function (req, res) {
-    console.log("req.user: ", req.user)
     res.redirect('/')
   })
 

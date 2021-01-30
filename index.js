@@ -8,20 +8,19 @@ var session = require('express-session')
 const {Users} = require('./models');
 
 
-const UrlDB = `mongodb+srv://nodejs-mongo-admin:${process.env.MONGO_NAME}@cluster0.jsjpu.mongodb.net/${process.env.MONGO_PASSWORD}?retryWrites=true&w=majority`
+const UrlDB = `mongodb+srv://nodejs-mongo-admin:qwe321QWE321@cluster0.jsjpu.mongodb.net/qwe321QWE321?retryWrites=true&w=majority`
 
 const loggerMiddleware = require('./middleware/logger');
 const errorMiddleware = require('./middleware/error');
 
 const indexRouter = require('./routes/index');
 const booksApiRouter = require('./routes/api/books');
+const userApiRouter = require('./routes/api/user');
 const booksRouter = require('./routes/books');
 const userRouter = require('./routes/user');
 
 const app = express();
 app.set('view engine', 'ejs');
-
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -29,14 +28,6 @@ app.use(loggerMiddleware);
 
 app.use('/files', express.static(__dirname+'/public'));
 
-
-
-
-/**
- * @param {String} username
- * @param {String} password
- * @param {Function} done
- */
 
 function verify (username, password, done) {
     Users.findByUsername(username, function (err, user) {
@@ -77,6 +68,7 @@ function verify (username, password, done) {
 
 app.use('/', indexRouter);
 app.use('/api/books', booksApiRouter);
+app.use('/api/user', userApiRouter);
 app.use('/books', booksRouter);
 app.use('/user', userRouter);
 
