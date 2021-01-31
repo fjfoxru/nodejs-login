@@ -30,7 +30,7 @@ app.use('/files', express.static(__dirname+'/public'));
 
 
 function verify (username, password, done) {
-    Users.findByUsername(username, function (err, user) {
+    Users.findOne({username}, function (err, user) {
       if (err) { return done(err) }
       if (!user) { return done(null, false) }
   
