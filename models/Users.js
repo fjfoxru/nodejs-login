@@ -1,4 +1,6 @@
 const {Schema, model} = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
+
 
 const userSchema = new Schema({
     login: {
@@ -11,5 +13,9 @@ const userSchema = new Schema({
     },
     
 });
+
+userSchema.methods.verifyPassword = function(password) {
+    return bcrypt.compareSync(password, this._doc.password);
+};
 
 module.exports = model('Users', userSchema);
