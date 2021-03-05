@@ -34,7 +34,7 @@ function verify (username, password, done) {
       if (err) { return done(err) }
       if (!user) { return done(null, false) }
   
-      if (!user.verifyPassword(user, password)) { return done(null, false) }
+      if (!user.verifyPassword(password)) { return done(null, false) }
       return done(null, user)
     })
   }
@@ -50,7 +50,7 @@ function verify (username, password, done) {
   })
   
   passport.deserializeUser(function (id, cb) {
-    Users.findById.findById(id, function (err, user) {
+    Users.findById(id, function (err, user) {
       if (err) { return cb(err) }
       cb(null, user)
     })
